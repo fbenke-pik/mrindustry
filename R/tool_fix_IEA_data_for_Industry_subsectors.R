@@ -11,7 +11,7 @@
 #' "non-specified".
 #' Outputs from blast furnaces (`BLFURGS`, `OGASES`) and coke ovens (`OVENCOKE`,
 #' `COKEOVGS`, `COALTAR`, `NONCRUDE`), that are inputs into industry subsectors.
-#' Used internally in mrremind::calcIO() for subtype `output_Industry_subsectors`.
+#' Used internally in mrremind::calcIO() and mrindustry::calcEnergyBalancesOutputToIndustry()
 #'
 #' @md
 #' @param data MAgPIE object containing the IEA Energy Balances data
@@ -36,9 +36,9 @@
 #' @export
 tool_fix_IEA_data_for_Industry_subsectors <- function(data, threshold = 1e-2) {
 
-  . <- NULL
-
   # replace coke oven and blast furnace outputs ----
+
+  # helper to convert a MAgPIE object to tibble
   .clean_data <- function(m, keep_zeros = FALSE) {
     m %>%
       as.data.frame() %>%
@@ -51,6 +51,8 @@ tool_fix_IEA_data_for_Industry_subsectors <- function(data, threshold = 1e-2) {
   }
 
   ## flow definitions ----
+
+  # TODO: is this list outdated, as new IEA data already has new product-flows?
   IEA_flows <- tribble(
     ~summary.flow,   ~flow,
     # Total Primary Energy Production
@@ -189,6 +191,8 @@ tool_fix_IEA_data_for_Industry_subsectors <- function(data, threshold = 1e-2) {
 
   base_flows <- unique(IEA_flows$flow)
   summary_flows <- unique(na.omit(IEA_flows$summary.flow))
+
+  # what does 'all' mean in this context?
   all_flows <- c(base_flows, summary_flows)
 
   ### blast furnace flows to be replaced ----
@@ -204,9 +208,7 @@ tool_fix_IEA_data_for_Industry_subsectors <- function(data, threshold = 1e-2) {
   ## blast furnace data ----
   # all products in/out of blast furnace transformation and energy demand, except
   # summary flows 'TOTAL' and 'MRENEW'
-  data_BLASTFUR <- data %>%
-    `[`(,, c('EBLASTFUR', 'TBLASTFUR'), pmatch = 'right') %>%
-    `[`(,, c('TOTAL', 'MRENEW'), pmatch = 'left', invert = TRUE) %>%
+  data_BLASTFUR <- data[,,c('EBLASTFUR', 'TBLASTFUR')][,,c('TOTAL', 'MRENEW'), invert = TRUE] %>%
     .clean_data() %>%
     group_by(!!!syms(c('iso3c', 'year', 'product'))) %>%
     summarise(value = sum(.data$value), .groups = 'drop')
@@ -228,6 +230,8 @@ tool_fix_IEA_data_for_Industry_subsectors <- function(data, threshold = 1e-2) {
     unique()
 
   ### product/flow to be replaced ----
+
+  # TODO: continue here
   # all blast furnace outputs and flows to be replaced, that are actually present
   # in the data
   product_flow_BLASTFUR_to_replace <- intersect(
@@ -235,14 +239,14 @@ tool_fix_IEA_data_for_Industry_subsectors <- function(data, threshold = 1e-2) {
     getNames(data))
 
   ### blast furnace product use ----
-  data_BLASTFUR_use <- data %>%
-    `[`(,, product_flow_BLASTFUR_to_replace) %>%
+  data_BLASTFUR_use <- data[,, product_flow_BLASTFUR_to_replace] %>%
     .clean_data()
 
   ## blast furnace replacement data ----
   # outputs are replaced joule-by-joule with inputs, according to the input shares
   # right_join() filters out countries/years that do not use blast furnace
   # products
+  # TODO: ?
   data_BLASTFUR_replacement <- right_join(
     data_BLASTFUR_inputs %>%
       group_by(!!!syms(c('iso3c', 'year'))) %>%
@@ -267,9 +271,7 @@ tool_fix_IEA_data_for_Industry_subsectors <- function(data, threshold = 1e-2) {
   ## coke oven data ----
   # all products in/out of coke oven transformation and energy demand, except
   # summary flows 'TOTAL' and 'MRENEW'
-  data_COKEOVS <- data %>%
-    `[`(,, c('ECOKEOVS', 'TCOKEOVS'), pmatch = 'right') %>%
-    `[`(,, c('TOTAL', 'MRENEW'), pmatch = 'left', invert = TRUE) %>%
+  data_COKEOVS <- data[,, c('ECOKEOVS', 'TCOKEOVS')][,, c('TOTAL', 'MRENEW'),invert = TRUE] %>%
     .clean_data() %>%
     group_by(!!!syms(c('iso3c', 'year', 'product'))) %>%
     summarise(value = sum(.data$value), .groups = 'drop')
