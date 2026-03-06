@@ -551,12 +551,13 @@ tool_fix_IEA_data_for_Industry_subsectors <- function(data, threshold = 1e-2) {
 
     # add flows from CO/BF adjustment routine df_CO_BF_adjustment
     df_data_fixed <- df_data_fixed %>%
-      left_join(df_CO_BF_adjustment,
+      full_join(df_CO_BF_adjustment,
                 by = c('iso3c', 'year', 'product', 'flow'),
                 suffix = c('', '.replace')) %>%
       mutate(value = ifelse(is.na(.data$value.replace),
                             .data$value,
-                            .data$value + .data$value.replace)) %>%
+                            ifelse(is.na(.data$value), .data$value.replace, .data$value + .data$value.replace)
+                            )) %>%
       select(.data$iso3c, .data$year, .data$product, .data$flow, .data$value)
 
 
@@ -614,6 +615,7 @@ tool_fix_IEA_data_for_Industry_subsectors <- function(data, threshold = 1e-2) {
 
   # final data after CO+BF adjustment
   data <- data_fixed
+  data[is.na(data)] <- 0
 
   # 2. Prepare Industry Subsector Time Series ----
 

@@ -22,6 +22,7 @@
 #'
 #' @param threshold minimum share each industry subsector uses of each product.
 #'   Defaults to 1 %.
+#' @param fixing temporary flag
 #'
 #' @return a MAgPIE object
 #'
@@ -38,7 +39,7 @@
 #' @importFrom stats na.omit
 #' @importFrom tidyr complete gather nesting spread crossing
 #' @export
-toolFixIEAdataForIndustrySubsectors <- function(data, threshold = 1e-2) {
+toolFixIEAdataForIndustrySubsectors <- function(data, fixing, threshold = 1e-2) {
 
   ####
 
@@ -70,6 +71,8 @@ toolFixIEAdataForIndustrySubsectors <- function(data, threshold = 1e-2) {
   # 1. Replace steel sector outputs by inputs ----
 
   ## 1.1 Define functions ----
+
+  . <- NULL
 
   .clean_data <- function(m, keep_zeros = FALSE) {
     m %>%
@@ -585,6 +588,9 @@ toolFixIEAdataForIndustrySubsectors <- function(data, threshold = 1e-2) {
   sumFlows <- add_columns(sumFlows,
                           addnm = setdiff(getRegions(data), getRegions(sumFlows)),
                           dim = 1)
+  sumFlows <- add_columns(sumFlows,
+                          addnm = setdiff(getYears(data), getYears(sumFlows)),
+                          dim = 2)
 
   # replace summary flows with sums of adjusted CO+BF data
   data <- data[, , intersect(getNames(data, dim = "FLOW"),
@@ -592,6 +598,10 @@ toolFixIEAdataForIndustrySubsectors <- function(data, threshold = 1e-2) {
   data <- mbind(data, sumFlows)
 
   data[is.na(data)] <- 0
+
+  if (!fixing) {
+    return(data)
+  }
 
   # 2. Prepare Industry Subsector Time Series ----
 
