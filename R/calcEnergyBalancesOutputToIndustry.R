@@ -20,7 +20,7 @@ calcEnergyBalancesOutputToIndustry <- function() {
   data <- readSource("IEA", subtype = "EnergyBalances") * 4.1868e-5
 
   # apply corrections to IEA data to cope with fragmentary time series
-  data <- toolFixIEAdataForIndustrySubsectors(data)
+  data <- toolFixIEAdataForIndustrySubsectors(data, fixing = TRUE)
 
   reminditems <-  do.call(
     mbind,
