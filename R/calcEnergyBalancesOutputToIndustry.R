@@ -5,8 +5,8 @@
 calcEnergyBalancesOutputToIndustry <- function() {
 
   ieamatch <- toolGetMapping(type = "sectoral",
-                             name = "structuremappingIO_outputs_Industry_subsectors.csv",
-                             where = "mrindustry",
+                             name = "structuremappingIO_outputs.csv",
+                             where = "mrcommons",
                              returnPathOnly = FALSE)
 
   target <- c("REMINDitems_in", "REMINDitems_out", "REMINDitems_tech")
@@ -20,22 +20,7 @@ calcEnergyBalancesOutputToIndustry <- function() {
   data <- readSource("IEA", subtype = "EnergyBalances") * 4.1868e-5
 
   # apply corrections to IEA data to cope with fragmentary time series
-  namesBefore <- getNames(data)
-  data <- tool_fix_IEA_data_for_Industry_subsectors(data)
-
-  # warn if product flows not present in the mapping have been added to the data
-  newItems <- setdiff(getNames(data), namesBefore)
-  productFlows <- unique(pull(ieamatch, "product.flow"))
-  newProductFlows <- setdiff(newItems, productFlows)
-
-  # FIXME: investigate, as these product flows mean potential losses after mapping
-  if (!rlang::is_empty(newProductFlows)) {
-    message("Product/flow combinations not present in mapping added by ",
-            "fix_IEA_data_for_Industry_subsectors():\n",
-            paste(newProductFlows, collapse = "\n")
-    )
-  }
-
+  data <- toolFixIEAdataForIndustrySubsectors(data)
 
   reminditems <-  do.call(
     mbind,
