@@ -10,3 +10,5 @@
 ^.lintr$
 ^tests/.lintr$
 ^\.vscode$
+^\.positai$
+^\.claude$
