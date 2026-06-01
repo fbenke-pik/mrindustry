@@ -17,7 +17,6 @@
 #' @md
 #' @param data MAgPIE object containing the IEA Energy Balances data
 #'
-#' @param ieamatch mapping of IEA product/flow combinations to REMIND sectors and energy carriers
 #'
 #'
 #' @param threshold minimum share each industry subsector uses of each product.
