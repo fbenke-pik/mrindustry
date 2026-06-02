@@ -3,5 +3,5 @@
 # apply to all scenarios/regions and are overwritten by specific entries.
 # Regions are from the 21_EU11 mapping.
 scenario,region,from,by,target
-NA,NA,2015,2050,0.9
+NA,NA,2015,2050,0.7
 SSP2EU,DEU,2015,2100,0.81

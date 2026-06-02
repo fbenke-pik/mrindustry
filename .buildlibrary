@@ -1,4 +1,4 @@
-ValidationKey: '2357730'
+ValidationKey: '2387860'
 AutocreateReadme: yes
 AcceptedWarnings:
 - 'Warning: package ''.*'' was built under R version'
@@ -11,3 +11,4 @@ allowLinterWarnings: yes
 enforceVersionUpdate: yes
 skipCoverage: no
 AutocreateCITATION: yes
+UsePkgDown: no
