@@ -10,3 +10,6 @@
 ^.lintr$
 ^tests/.lintr$
 ^\.vscode$
+^\.positai$
+^\.claude$
+^_pkgdown\.yml$
