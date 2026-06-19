@@ -11,8 +11,6 @@ tool_fix_IEA_data_for_Industry_subsectors(data, threshold = 0.01)
 
 \item{threshold}{minimum share each industry subsector uses of each product.
 Defaults to 1 \%.}
-
-\item{ieamatch}{mapping of IEA product/flow combinations to REMIND sectors and energy carriers}
 }
 \value{
 a MAgPIE object
