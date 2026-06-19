@@ -7,7 +7,7 @@
 #'   - `clinker-to-cement-ratio` for the clinker-to-cement ratios from figure 21
 #'     of Edelenbosch, O. _Enhancing the representation of energy demand
 #'     developments in IAM models - A Modeling Guide for the Cement Industry_
-#'     (2015) [zotero://select/items/JP8X2QFK](zotero://select/items/JP8X2QFK),
+#'     (2015) (zotero://select/items/JP8X2QFK),
 #'     which is extended from H12 regions to country level.
 #'
 #' @return A [`magpie`][magclass::magclass] object.
