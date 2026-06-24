@@ -2,5 +2,5 @@ subsector,         type,       limit
 cement,            absolute,   1.8
 steel_primary,     absolute,   8
 steel_secondary,   absolute,   1.3
-chemicals,         relative,   0.1
-otherInd,          relative,   0.1
+chemicals,         relative,   0.3
+otherInd,          relative,   0.3

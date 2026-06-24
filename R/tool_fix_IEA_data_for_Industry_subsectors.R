@@ -18,7 +18,6 @@
 #' @param data MAgPIE object containing the IEA Energy Balances data
 #'
 #'
-#'
 #' @param threshold minimum share each industry subsector uses of each product.
 #'   Defaults to 1 %.
 #'
