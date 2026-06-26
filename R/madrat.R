@@ -1,13 +1,3 @@
-# .onLoad <- function(libname, pkgname) {
-#   madrat::madratAttach(c(pkgname, "mrremind", "GDPuc", "mrcommons", "mrdrivers"))
-# }
-#
-#
-# .onUnload <- function(libpath) {
-#   madrat::madratDetach(c(libpath, "mrremind", "GDPuc", "mrcommons", "mrdrivers"))
-# }
-
-
 .onAttach <- function(libname, pkgname) {
   madrat::madratAttach(pkgname)
 }
