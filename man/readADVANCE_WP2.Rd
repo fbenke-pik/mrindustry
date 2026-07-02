@@ -12,17 +12,17 @@ readADVANCE_WP2(subtype)
 \item \code{clinker-to-cement-ratio} for the clinker-to-cement ratios from figure 21
 of Edelenbosch, O. \emph{Enhancing the representation of energy demand
 developments in IAM models - A Modeling Guide for the Cement Industry}
-(2015) \url{zotero://select/items/JP8X2QFK}
+(2015) (zotero://select/items/JP8X2QFK)
 }}
 }
 \value{
-A \code{\link[magclass:magclass-package]{magpie}} object.
+A \code{\link[magclass:magclass]{magpie}} object.
 }
 \description{
 Read ADVANCE WP2 Data
 }
 \seealso{
-\code{\link[madrat:readSource]{madrat::readSource()}}, \code{\link[=convertADVANCE_WP2]{convertADVANCE_WP2()}}
+\code{\link[madrat:readSource]{readSource()}}, \code{\link[=convertADVANCE_WP2]{convertADVANCE_WP2()}}
 }
 \author{
 Michaja Pehl

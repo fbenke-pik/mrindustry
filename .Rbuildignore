@@ -12,3 +12,5 @@
 ^\.vscode$
 ^\.positai$
 ^\.claude$
+^_pkgdown\.yml$
+

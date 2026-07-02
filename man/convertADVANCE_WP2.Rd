@@ -7,7 +7,7 @@
 convertADVANCE_WP2(x, subtype)
 }
 \arguments{
-\item{x}{A \code{\link[magclass:magclass-package]{magpie}} object returned by
+\item{x}{A \code{\link[magclass:magclass]{magpie}} object returned by
 \code{\link[=readADVANCE_WP2]{readADVANCE_WP2()}}.}
 
 \item{subtype}{One of
@@ -15,18 +15,18 @@ convertADVANCE_WP2(x, subtype)
 \item \code{clinker-to-cement-ratio} for the clinker-to-cement ratios from figure 21
 of Edelenbosch, O. \emph{Enhancing the representation of energy demand
 developments in IAM models - A Modeling Guide for the Cement Industry}
-(2015) \url{zotero://select/items/JP8X2QFK},
+(2015) (zotero://select/items/JP8X2QFK),
 which is extended from H12 regions to country level.
 }}
 }
 \value{
-A \code{\link[magclass:magclass-package]{magpie}} object.
+A \code{\link[magclass:magclass]{magpie}} object.
 }
 \description{
 Convert ADVANCE WP2 Data
 }
 \seealso{
-\code{\link[madrat:readSource]{madrat::readSource()}}, \code{\link[=readADVANCE_WP2]{readADVANCE_WP2()}}
+\code{\link[madrat:readSource]{readSource()}}, \code{\link[=readADVANCE_WP2]{readADVANCE_WP2()}}
 }
 \author{
 Michaja Pehl
